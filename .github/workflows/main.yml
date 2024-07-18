@@ -43,13 +43,13 @@ jobs:
             specName="${specName%%.*}"
             if [ "$sessionId" != "null" ] && [ "$specName" != "null" ]; then
               sauce_url="https://app.saucelabs.com/tests/$sessionId"
-              clickable_link="[Click here]($sauce_url)"
+              clickable_link="[Click here](https://app.saucelabs.com/tests/$sessionId)"
               echo "Generated Sauce Labs URL for $specName: $clickable_link"
               urls="$urls$specName = $clickable_link\n"
             fi
           done
-          echo -e "$urls" > sauce_labs_urls.txt
-          echo "SAUCE_LABS_URLS=$(cat sauce_labs_urls.txt | tr '\n' ' ')" >> $GITHUB_ENV
+          echo -e "$urls" > sauce_labs_urls.md
+          echo "SAUCE_LABS_URLS=$(cat sauce_labs_urls.md | tr '\n' ' ')" >> $GITHUB_ENV
 
     - name: Display generated Sauce Labs URLs
       run: |
