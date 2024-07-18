@@ -23,3 +23,6 @@ jobs:
     - name: Running tests
       run: |
         npm run start
+
+    - name: Use Generated ID
+      run: echo "The generated ID is $ID"
