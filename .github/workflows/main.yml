@@ -57,10 +57,10 @@ jobs:
           echo "${{ env.SAUCE_LABS_URLS }}"
 
     - name: Upload Sauce Labs URLs artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
           name: sauce-labs-urls
-          path: sauce_labs_urls.txt
+          path: sauce_labs_urls.md
           if-no-files-found: error
 
     - name: Use the URLs (example step)
