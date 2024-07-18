@@ -21,8 +21,12 @@ jobs:
       run: npm install
 
     - name: Running tests
+      id: generate_id
       run: |
         npm run start
 
     - name: Use Generated ID
       run: echo "The generated ID is $ID"
+
+    - name: Use Generated ID2
+      run: echo "The generated ID is ${{ steps.generate_id.outputs.generated_id }}"
