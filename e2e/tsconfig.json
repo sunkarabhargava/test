@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "sourceMap": false,
+    "target": "es2019",
+    "module": "commonjs",
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "types": [
+      "node",
+      "@wdio/globals/types",
+      "expect-webdriverio",
+      "@wdio/mocha-framework",
+      "@wdio/devtools-service",
+      "@wdio/sauce-service",
+      "./types/wdio"
+    ]
+  }
+}
