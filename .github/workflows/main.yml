@@ -30,3 +30,33 @@ jobs:
 
     - name: Use Generated ID2
       run: echo "The generated ID is ${{ steps.generate_id.outputs.generated_id }}"
+    - name: Install jq
+      run: sudo apt-get install -y jq
+
+    - name: Extract session IDs and generate URLs
+      id: generate_urls
+      run: |
+          urls=""
+          for file in results/*.json; do
+            sessionId=$(jq -r '.capabilities.sessionId' "$file")
+            if [ "$sessionId" != "null" ]; then
+              sauce_url="https://app.saucelabs.com/tests/$sessionId"
+              echo "Generated Sauce Labs URL: $sauce_url"
+              urls="$urls$sauce_url\n"
+            fi
+          done
+          echo -e "$urls" > sauce_labs_urls.txt
+          echo "SAUCE_LABS_URLS=$(cat sauce_labs_urls.txt | tr '\n' ' ')" >> $GITHUB_ENV
+
+    - name: Display generated Sauce Labs URLs
+      run: |
+          echo "Sauce Labs URLs:"
+          echo "${{ env.SAUCE_LABS_URLS }}"
+
+    - name: Use the URLs (example step)
+      run: |
+          # Example of using the generated URLs
+          for url in ${{ env.SAUCE_LABS_URLS }}; do
+            echo "Processing URL: $url"
+            # Add your URL processing logic here
+          done
