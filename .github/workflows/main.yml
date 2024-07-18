@@ -48,17 +48,8 @@ jobs:
             fi
           done
           echo -e "$urls" > sauce_labs_urls.txt
-          echo "SAUCE_LABS_URLS=$(cat sauce_labs_urls.txt | tr '\n' ' ')" >> $GITHUB_ENV
-
-    - name: Display generated Sauce Labs URLs
-      run: |
-          echo "Sauce Labs URLs:"
-          echo "${{ env.SAUCE_LABS_URLS }}"
-
-    - name: Use the URLs (example step)
-      run: |
-          # Example of using the generated URLs
-          for url in ${{ env.SAUCE_LABS_URLS }}; do
-            echo "Processing URL: $url"
-            # Add your URL processing logic here
-          done
+    - name: Upload Sauce Labs URLs artifact
+      uses: actions/upload-artifact@v2
+      with:
+          name: sauce-labs-urls
+          path: sauce_labs_urls.txt
