@@ -43,13 +43,30 @@ jobs:
             specName="${specName%%.*}"
             if [ "$sessionId" != "null" ] && [ "$specName" != "null" ]; then
               sauce_url="https://app.saucelabs.com/tests/$sessionId"
-              echo "Generated Sauce Labs URL for $specName: $sauce_url"
-              urls="$urls$specName = $sauce_url\n"
+              clickable_link="[Click here]($sauce_url)"
+              echo "Generated Sauce Labs URL for $specName: $clickable_link"
+              urls="$urls$specName = $clickable_link\n"
             fi
           done
           echo -e "$urls" > sauce_labs_urls.txt
+          echo "SAUCE_LABS_URLS=$(cat sauce_labs_urls.txt | tr '\n' ' ')" >> $GITHUB_ENV
+
+    - name: Display generated Sauce Labs URLs
+      run: |
+          echo "Sauce Labs URLs:"
+          echo "${{ env.SAUCE_LABS_URLS }}"
+
     - name: Upload Sauce Labs URLs artifact
       uses: actions/upload-artifact@v2
       with:
           name: sauce-labs-urls
           path: sauce_labs_urls.txt
+          if-no-files-found: error
+
+    - name: Use the URLs (example step)
+      run: |
+          # Example of using the generated URLs
+          for url in ${{ env.SAUCE_LABS_URLS }}; do
+            echo "Processing URL: $url"
+            # Add your URL processing logic here
+          done
