@@ -33,16 +33,18 @@ jobs:
     - name: Install jq
       run: sudo apt-get install -y jq
 
-    - name: Extract session IDs and generate URLs
+    - name: Extract session IDs and spec names, generate URLs
       id: generate_urls
       run: |
           urls=""
           for file in results/*.json; do
             sessionId=$(jq -r '.capabilities.sessionId' "$file")
-            if [ "$sessionId" != "null" ]; then
+            specName=$(jq -r '.specs[0]' "$file" | xargs basename)
+            specName="${specName%%.*}"
+            if [ "$sessionId" != "null" ] && [ "$specName" != "null" ]; then
               sauce_url="https://app.saucelabs.com/tests/$sessionId"
-              echo "Generated Sauce Labs URL: $sauce_url"
-              urls="$urls$sauce_url\n"
+              echo "Generated Sauce Labs URL for $specName: $sauce_url"
+              urls="$urls$specName = $sauce_url\n"
             fi
           done
           echo -e "$urls" > sauce_labs_urls.txt
