@@ -1,91 +1,12 @@
 {
-  "name": "test",
-  "version": "0.2.1",
-  "private": true,
-  "dependencies": {
-    "vite": "5.2.11"
-  },
+  "name": "my-node-app",
+  "version": "1.0.0",
+  "description": "A sample Node.js application",
+  "main": "index.js",
   "scripts": {
-    "envsubst": "envsub --syntax dollar-both ./env-configs/env-template.js public/env.js",
-    "setLocalEnv": "env-cmd --fallback -f ./env-configs/.env npm run envsubst",
-    "setLocalEnvDev": "env-cmd --fallback -f ./env-configs/.env-dev npm run envsubst",
-    "setLocalEnvNoAuth": "env-cmd --fallback -f ./env-configs/.env-noauth npm run envsubst",
-    "quality": "npm run lint && npm run prettier && npm run test",
-    "start": "npm run setLocalEnv && react-scripts --openssl-legacy-provider start",
-    "start:dev": "concurrently \"npm run setLocalEnv\" \"cross-env PORT=3000 react-scripts --openssl-legacy-provider start\"",
-    "start:local": "concurrently \"node mock\" \"npm run setLocalEnv\" \"cross-env PORT=3000 BROWSER=none vite --force\" \"launch-luminate-portal\"",
-    "start:local:legacy": "concurrently \"node mock\" \"npm run setLocalEnv\" \"cross-env PORT=3000 BROWSER=none react-scripts --openssl-legacy-provider start\" \"launch-luminate-portal\"",
-    "start:localProd": "concurrently \"node mock\" \"npm run setLocalEnv\" \"serve -s build\" \"launch-luminate-portal\"",
-    "build": "tsc && cross-env NODE_OPTIONS=--max-old-space-size=8172 vite build",
-    "build:mfe": "tsc && cross-env NODE_OPTIONS=--max-old-space-size=8172 vite build --mode mfe",
-    "build:legacy": "cross-env DISABLE_NEW_JSX_TRANSFORM=true react-scripts --openssl-legacy-provider --max_old_space_size=8172 build",
-    "test-no-coverage": "react-scripts test",
-    "eject": "react-scripts eject",
-    "test": "npm run setLocalEnv && react-scripts test --coverage --watchAll=false --silent",
-    "lint": "eslint src/**/*.ts src/**/*.tsx",
-    "prettier": "prettier --check src/**/*.ts src/**/*.tsx",
-    "format": "prettier --write src/**/*.{js,jsx,ts,tsx} && prettier --write src/*.{js,jsx,ts,tsx}",
-    "pre-commit": "concurrently \"npm run format\"  \"npm run lint\"",
-    "clear-jest": "jest --clearCache",
-    "test:e2e:chrome": "cross-env TZ=Australia/Adelaide TS_NODE_PROJECT=e2e/tsconfig.json wdio run e2e/configs/wdio.local.chrome.conf.ts",
-    "test:e2e:saucelabs": "cross-env TZ=Australia/Adelaide TS_NODE_PROJECT=e2e/tsconfig.json wdio run e2e/configs/wdio.sauce.conf.ts",
-    "test:e2e:saucelabs:availability": "cross-env TZ=Australia/Adelaide TS_NODE_PROJECT=e2e/tsconfig.json  wdio run  e2e/configs/wdio.availability.conf.ts -l debug"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version",
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ]
-  },
-  "jest": {
-    "coverageThreshold": {
-      "global": {
-        "statements": 95,
-        "branches": 85,
-        "functions": 85,
-        "lines": 95
-      }
-    },
-    "transformIgnorePatterns": [
-      "/node_modules/(?!(@by/portal-bde-component-library)/)"
-    ],
-    "coveragePathIgnorePatterns": [
-      "src/serviceWorker",
-      "src/index.tsx",
-      "src/models"
-    ],
-    "moduleNameMapper": {
-      "axios": "axios/dist/node/axios.cjs",
-      "\\.(css|scss)$": "identity-obj-proxy"
-    }
-  },
-  "devDependencies": {
-    "webdriver": "^8.10.4",
-    "webdriverio": "^8.10.2",
-    "expect-webdriverio": "^3.1.0",
-    "@wdio/appium-service": "^8.10.0",
-    "@wdio/cli": "8.35.1",
-    "@wdio/devtools-service": "8.36.1",
-    "@wdio/globals": "8.28.6",
-    "@wdio/local-runner": "8.28.7",
-    "@wdio/mocha-framework": "8.28.6",
-    "@wdio/sauce-service": "8.36.1",
-    "@wdio/spec-reporter": "8.28.6",
-    "@wdio/types": "8.28.6",
-    "wdio": "^6.0.1",
-    "wdio-chromedriver-service": "^8.1.1",
-    "wdio-spec-reporter": "^0.1.5"
-  }
+  "author": "Your Name",
+  "license": "MIT"
 }
