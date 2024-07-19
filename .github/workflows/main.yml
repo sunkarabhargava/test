@@ -46,6 +46,7 @@ jobs:
               # Shorten URL using TinyURL API
               short_url=$(curl -s "http://tinyurl.com/api-create.php?url=$sauce_url")
               echo -e "\e[32mGenerated Sauce Labs Run URL for spec $specName:\e[0m \e[31m$short_url\e[0m"
+              printf "\e[32mGenerated Sauce Labs Run URL for spec %s:\e[0m \e[31m%s\e[0m\n" "$specName" "$short_url"
               urls="$urls$specName = $short_url\n"
               urls+="\033[34mGenerated Sauce Labs Run URL for spec $specName: $short_url\033[0m\n"
             fi
