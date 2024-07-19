@@ -45,11 +45,7 @@ jobs:
               sauce_url="https://app.saucelabs.com/tests/$sessionId"
               # Shorten URL using TinyURL API
               short_url=$(curl -s "http://tinyurl.com/api-create.php?url=$sauce_url")
-              echo "Generated Sauce Labs URL for $specName: $short_url"
-                  # Print spec name in green
-              echo -e "Generated Sauce Labs Run URL for spec \e[32m$specName\e[0m:"
-                  # Print URL in red
-              echo -e "\e[31m$short_url\e[0m"
+              echo -e "Generated Sauce Labs Run URL for spec \e[32m$specName\e[0m: \e[31m$short_url\e[0m"
               urls="$urls$specName = $short_url\n"
               urls+="\033[34mGenerated Sauce Labs Run URL for spec $specName: $short_url\033[0m\n"
             fi
